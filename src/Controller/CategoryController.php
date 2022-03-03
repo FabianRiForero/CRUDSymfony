@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,19 +39,23 @@ class CategoryController extends AbstractController
         // Create a new category
         $category = new Category();
 
-        $category->setName('Jabones');
-        $category->setActive(true);
         $category->setCreatedAt(new \DateTimeImmutable('now'));
         $category->setUpdatedAt(new \DateTimeImmutable('now'));
+        $form = $this->createForm(CategoryType::class,$category);
+        $form->handleRequest($request);
 
-        //entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($category);
-        $em->flush();
+        if($form->isSubmitted()){
+            //entity manager
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirect($this->generateUrl('category.index'));
+        }
 
         //return a response
-        return $this->redirect($this->generateUrl('category.index'));
+        return $this->render('category/create.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 
     /**

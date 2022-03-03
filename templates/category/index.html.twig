@@ -6,7 +6,7 @@
     {% include "partials/header.html.twig" %}
     <div class="container">
         <h2>Lista de todas las categorias</h2>
-        {% for message in app.flashes('4') %}
+        {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
