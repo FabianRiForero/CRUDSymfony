@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de Categorias{% endblock %}
+
+{% block body %}
+    {% include "partials/header.html.twig" %}
+    <div class="container">
+        <h2>Lista de todas las categorias</h2>
+        {% for message in app.flashes('4') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Fecha de Creacion</th>
+                    <th>Fecha de Ultima Modificación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>
+                        <a href="{{ path('category.show',{id: category.id}) }}">{{ category.name }}</a>
+                    </td>
+                    <td>{{ category.createdAt|date("d/M/Y H:i:s") }}</td>
+                    <td>{{ category.updatedAt|date("d/M/Y H:i:s") }}</td>
+                    <td>
+                        <a href="{{ path('category.destroy',{id: category.id}) }}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

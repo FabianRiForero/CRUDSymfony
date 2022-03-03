@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+    {% include 'partials/header.html.twig' %}
+    <div class="container">
+        <h2>{{ category.name }}</h2>
+    </div>
+{% endblock body %}
