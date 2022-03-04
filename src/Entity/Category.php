@@ -6,8 +6,11 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
+ * @Annotation
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
 class Category
@@ -20,11 +23,13 @@ class Category
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="boolean")
      */
     private $active;
@@ -130,5 +135,10 @@ class Category
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

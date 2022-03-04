@@ -1,5 +1,15 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h1>Hello World</h1>
+    {% include "partials/header.html.twig" %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-6 p-1 d-flex justify-content-center">
+                <a href="{{ path('product.index') }}" class="btn btn-primary w-75">Productos</a>
+            </div>
+            <div class="col-6 p-1 d-flex justify-content-center">
+                <a href="{{ path('category.index') }}" class="btn btn-secondary w-75">Categorias</a>
+            </div>
+        </div>
+    </div>
 {% endblock body %}

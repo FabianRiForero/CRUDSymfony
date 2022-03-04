@@ -21,6 +21,19 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findProductWithCategory(int $id)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p.name');
+        $qb->addSelect('c.name');
+        $qb->addSelect('c.id AS category_id');
+        $qb->innerJoin('p.category','c');
+        $qb->where('p.id = :id');
+        $qb->setParameter('id',$id);
+        
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

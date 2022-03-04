@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
+ * @Annotation
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product
@@ -18,11 +21,13 @@ class Product
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $code;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -33,6 +38,7 @@ class Product
     private $description;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $brand;
@@ -43,6 +49,8 @@ class Product
     private $category;
 
     /**
+     * @Assert\Positive
+     * @Assert\NotBlank()
      * @ORM\Column(type="float")
      */
     private $price;
@@ -56,6 +64,11 @@ class Product
      * @ORM\Column(type="datetime_immutable")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $image;
 
     public function getId(): ?int
     {
@@ -154,6 +167,18 @@ class Product
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

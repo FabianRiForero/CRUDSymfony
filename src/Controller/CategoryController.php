@@ -73,6 +73,34 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/edit/{id}", name="edit")
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Request $request,$id,CategoryRepository $categoryRepository)
+    {
+        $category = $categoryRepository->find($id);
+
+        $category->setCreatedAt(new \DateTimeImmutable('now'));
+        $category->setUpdatedAt(new \DateTimeImmutable('now'));
+        $form = $this->createForm(CategoryType::class,$category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            //entity manager
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirect($this->generateUrl('category.index'));
+        }
+
+        //return a response
+        return $this->render('category/edit.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/destroy/{id}",name="destroy")
      * @param CategoryRepository $categoryRepository
      * @return RedirectResponse

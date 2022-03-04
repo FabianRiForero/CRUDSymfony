@@ -4,7 +4,18 @@
 
 {% block body %}
     {% include 'partials/header.html.twig' %}
-    <div class="container">
-        <h2>{{ category.name }}</h2>
+    <div class="container mt-3">
+        <a href="{{ path('category.index') }}" class="btn btn-primary">Lista de Categorias</a>
+        {% if category %}
+            <div class="col">
+                <h2 class="display-5 text-primary fw-bold">{{ category.name }}</h2>
+            </div>
+            <hr>
+            <div class="col">
+                <p class="fs-4">Estado: {{ category.active == true ? 'Activado' : 'Desactivado' }}</p>
+            </div>
+        {% else %}
+            <p>No existe esta categoria, por favor volver a la lista de categorias</p>
+        {% endif %}
     </div>
 {% endblock body %}

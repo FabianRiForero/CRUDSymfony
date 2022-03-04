@@ -17,14 +17,16 @@ class CategoryType extends AbstractType
                 'label' => 'Nombre'
             ])
             ->add('active',null,[
-                'label' => 'Activo'
+                'label' => 'Activo',
+                'required' => false
             ])
             // ->add('createdAt')
             // ->add('updatedAt')
             ->add('Guardar',SubmitType::class,[
                 'attr' => [
                     'class' => 'btn btn-primary d-flex justify-contend-end'
-                ]
+                ],
+                'label' => 'Guardar Categoria'
             ]);
         ;
     }
