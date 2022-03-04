@@ -1,4 +1,4 @@
-#CRUD Basico Symfony 5.4
+# CRUD Basico Symfony 5.4
 
 Este proyecto es un ejercicio de la creacion de un **CRUD** (Create, Read, Update) utilizando **Doctrine** para la creacion de la base de Datos en el SGBD MySQL.
 
